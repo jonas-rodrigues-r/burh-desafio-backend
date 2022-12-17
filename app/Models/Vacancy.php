@@ -36,9 +36,9 @@ class Vacancy extends Model
                 'required', Rule::in(config('vacancy.types')), 
                 'max:100'
             ],
-            'wage' => 'required|between:0,9999999999.99',
-            'hour' => 'required|numeric',
-            'id_company' => 'required|numeric',
+            'wage' => 'numeric',
+            'hour' => 'integer',
+            'id_company' => 'required|integer',
         ];
     }
 
@@ -51,8 +51,8 @@ class Vacancy extends Model
                 Rule::in(config('vacancy.types')), 
                 'max:100'
             ],
-            'wage' => 'between:0,9999999999.99',
-            'hour' => 'numeric',
+            'wage' => 'numeric',
+            'hour' => 'integer',
         ];
     }
 }
