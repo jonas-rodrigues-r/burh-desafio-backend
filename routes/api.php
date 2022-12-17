@@ -36,6 +36,7 @@ Route::prefix('company')->group(function () {
 Route::prefix('vacancy')->group(function () {
     Route::get('/', [VacancyController::class, 'index']);
     Route::get('/{id}', [VacancyController::class, 'show']);
+    Route::get('/get-by-company/{idCompany}', [VacancyController::class, 'getVacanciesByCompany']);
     Route::post('/', [VacancyController::class, 'create']);
     Route::put('/{id}', [VacancyController::class, 'update']);
     Route::delete('/{id}', [VacancyController::class, 'delete']);

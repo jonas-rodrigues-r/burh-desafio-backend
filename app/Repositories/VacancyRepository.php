@@ -31,13 +31,6 @@ class VacancyRepository
         return $this->vacancy->create($data);
     }
 
-    public function getNumberVacanciesByCompany(int $idCompany)
-    {
-        return $this->vacancy
-            ->where('id_company', $idCompany)
-            ->count();
-    }
-
     public function update(Vacancy $data)
     {
         return $data->update();
@@ -46,5 +39,21 @@ class VacancyRepository
     public function delete(Vacancy $data)
     {
         return $data->delete();
+    }
+
+    public function getNumberVacanciesByCompany(int $idCompany)
+    {
+        return $this->vacancy
+            ->where('id_company', $idCompany)
+            ->count();
+    }
+
+    public function getVacanciesByCompany(int $idCompany)
+    {
+        return $this->vacancy
+            ->select('title','description','type','wage','hours', 'id_company')
+            ->where('id_company', $idCompany)
+            ->with('company')
+            ->get();
     }
 }

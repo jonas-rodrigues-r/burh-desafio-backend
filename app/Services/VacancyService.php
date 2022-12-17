@@ -72,6 +72,17 @@ class VacancyService
         return $this->repository->delete($vacancy);
     }
 
+    public function getVacanciesByCompany(int $idCompany)
+    {
+        $vacancies = $this->repository->getVacanciesByCompany($idCompany);
+
+        if ($vacancies->isEmpty()) {
+            throw new Exception('Nenhum resultado foi encontrado!', Response::HTTP_OK);
+        }
+
+        return $vacancies;
+    }
+
     private function isMandatoryFieldsCltAndInternshipCompleted(array $data)
     {
         if (

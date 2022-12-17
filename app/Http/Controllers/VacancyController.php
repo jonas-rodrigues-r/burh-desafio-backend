@@ -48,4 +48,9 @@ class VacancyController extends Controller
 
         return response()->json('Vaga Excluída com Sucesso!', Response::HTTP_CREATED);
     }
+
+    public function getVacanciesByCompany(int $idCompany)
+    {
+        return $this->service->getVacanciesByCompany($idCompany);
+    }
 }

@@ -50,7 +50,7 @@ class Handler extends ExceptionHandler
         parent::register();
     }
 
-    public function render($request, Throwable $exception): JsonResponse
+    public function render($request, Throwable $exception)
     {
         parent::render($request, $exception);
 
@@ -65,7 +65,7 @@ class Handler extends ExceptionHandler
         return response()->json($exception->getMessage(), $this->getCodeException($exception));
     }
 
-    private function getCodeException(Throwable $exception): int
+    private function getCodeException(Throwable $exception)
     {
         return empty($exception->getCode()) || $exception->getCode() === 0 
         ? Response::HTTP_INTERNAL_SERVER_ERROR 
