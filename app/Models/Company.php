@@ -29,8 +29,8 @@ class Company extends Model
         return [
             'name' => 'required|string|min:3|max:100',
             'description' => 'required|string|min:3|max:250',
-            'cnpj' => 'required|numeric|min:14|max:14',
-            'id_plan' => 'required|numeric',
+            'cnpj' => 'required|numeric|digits:14|unique:App\Models\Company',
+            'id_plan' => 'required|integer',
         ];
     }
 
