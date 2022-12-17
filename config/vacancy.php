@@ -18,9 +18,4 @@ return [
         ],
     ],
 
-    'plans' => [
-        'free' => 1,
-        'premium' => 2,
-    ],
-
 ];
