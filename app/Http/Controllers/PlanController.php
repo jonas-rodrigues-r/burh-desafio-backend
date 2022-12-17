@@ -1,0 +1,20 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Services\PlanService;
+
+use App\Models\Plan;
+
+class PlanController extends Controller
+{
+    public function __construct(
+        protected PlanService $service,
+    ) { 
+    }
+    
+    public function index()
+    {
+        return Plan::all();
+    }
+}
