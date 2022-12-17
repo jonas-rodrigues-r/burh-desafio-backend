@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\PlanController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,4 +21,12 @@ Route::prefix('plan')->group(function () {
     Route::post('/', [PlanController::class, 'create']);
     Route::put('/{id}', [PlanController::class, 'update']);
     Route::delete('/{id}', [PlanController::class, 'delete']);
+});
+
+Route::prefix('company')->group(function () {
+    Route::get('/', [CompanyController::class, 'index']);
+    Route::get('/{id}', [CompanyController::class, 'show']);
+    Route::post('/', [CompanyController::class, 'create']);
+    Route::put('/{id}', [CompanyController::class, 'update']);
+    Route::delete('/{id}', [CompanyController::class, 'delete']);
 });
