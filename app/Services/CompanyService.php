@@ -28,4 +28,14 @@ class CompanyService
 
         return $company;
     }
+
+    public function create(array $data)
+    {
+        return $this->repository->create([
+            'name' => $data['name'],
+            'description' => $data['description'],
+            'cnpj' => $data['cnpj'],
+            'id_plan' => $data['id_plan'],
+        ]);
+    }
 }

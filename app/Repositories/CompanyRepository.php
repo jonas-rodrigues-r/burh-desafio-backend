@@ -25,4 +25,9 @@ class CompanyRepository
             ->with('plan')
             ->first();
     }
+
+    public function create(array $data)
+    {
+        return $this->company->create($data);
+    }
 }
