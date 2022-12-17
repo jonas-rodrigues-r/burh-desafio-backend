@@ -2,7 +2,11 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
+use Illuminate\Validation\ValidationException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -43,8 +47,28 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        $this->reportable(function (Throwable $e) {
-            //
-        });
+        parent::register();
+    }
+
+    public function render($request, Throwable $exception): JsonResponse
+    {
+        parent::render($request, $exception);
+
+        if ($exception instanceof ModelNotFoundException) {
+            return response()->json('Recurso não localizado.', Response::HTTP_NOT_FOUND);
+        }
+
+        if ($exception instanceof ValidationException) {
+            return response()->json($exception->getMessage(), Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        return response()->json($exception->getMessage(), $this->getCodeException($exception));
+    }
+
+    private function getCodeException(Throwable $exception): int
+    {
+        return empty($exception->getCode()) || $exception->getCode() === 0 
+        ? Response::HTTP_INTERNAL_SERVER_ERROR 
+        : $exception->getCode();
     }
 }
