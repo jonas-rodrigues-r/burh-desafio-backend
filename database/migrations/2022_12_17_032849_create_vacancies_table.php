@@ -19,7 +19,7 @@ return new class extends Migration
             $table->text('description');
             $table->string('type', 100);
             $table->decimal('wage', 10, 2)->nullable();
-            $table->integer('hours')->nullable(true);
+            $table->integer('hours')->nullable();
             $table->unsignedBigInteger('id_company');
             $table->foreign('id_company')->references('id')->on('companies')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
