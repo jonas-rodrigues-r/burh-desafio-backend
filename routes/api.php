@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\PlanController;
+use App\Http\Controllers\VacancyController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,4 +30,12 @@ Route::prefix('company')->group(function () {
     Route::post('/', [CompanyController::class, 'create']);
     Route::put('/{id}', [CompanyController::class, 'update']);
     Route::delete('/{id}', [CompanyController::class, 'delete']);
+});
+
+Route::prefix('vacancy')->group(function () {
+    Route::get('/', [VacancyController::class, 'index']);
+    Route::get('/{id}', [VacancyController::class, 'show']);
+    Route::post('/', [VacancyController::class, 'create']);
+    Route::put('/{id}', [VacancyController::class, 'update']);
+    Route::delete('/{id}', [VacancyController::class, 'delete']);
 });
