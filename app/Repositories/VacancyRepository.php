@@ -17,4 +17,12 @@ class VacancyRepository
             ->with('company')
             ->get();
     }
+
+    public function show(int $id)
+    {
+        return $this->vacancy
+            ->where('id', $id)
+            ->with('company')
+            ->first();
+    }
 }

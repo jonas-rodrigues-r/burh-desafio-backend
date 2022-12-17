@@ -15,4 +15,9 @@ class VacancyController extends Controller
     {
         return $this->service->index();
     }
+
+    public function show(int $id)
+    {
+        return $this->service->show($id);
+    }
 }
