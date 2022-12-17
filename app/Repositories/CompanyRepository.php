@@ -17,4 +17,12 @@ class CompanyRepository
             ->with('plan')
             ->get();
     }
+
+    public function show(int $id)
+    {
+        return $this->company
+            ->where('id', $id)
+            ->with('plan')
+            ->first();
+    }
 }
