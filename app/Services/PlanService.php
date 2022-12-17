@@ -28,4 +28,14 @@ class PlanService
 
         return $plan;
     }
+
+    public function create(array $data)
+    {
+        return $this->repository->create([
+            'name' => $data['name'],
+            'description' => $data['description'],
+            'price' => $data['price'],
+            'number_vacancies' => $data['number_vacancies'],
+        ]);
+    }
 }

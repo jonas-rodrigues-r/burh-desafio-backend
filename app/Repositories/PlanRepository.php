@@ -22,4 +22,9 @@ class PlanRepository
             ->where('id', $id)
             ->first();
     }
+
+    public function create(array $data)
+    {
+        return $this->plan->create($data);
+    }
 }

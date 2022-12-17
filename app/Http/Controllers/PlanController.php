@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Services\PlanService;
-
-use App\Models\Plan;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class PlanController extends Controller
 {
@@ -15,11 +15,18 @@ class PlanController extends Controller
     
     public function index()
     {
-        return Plan::all();
+        return $this->service->index();
     }
 
     public function show(int $id)
     {
         return $this->service->show($id);
+    }
+
+    public function create(Request $request)
+    {
+        $this->service->create($request->all());
+
+        return response()->json('Plano Cadastrado com Sucesso!', Response::HTTP_CREATED);
     }
 }
