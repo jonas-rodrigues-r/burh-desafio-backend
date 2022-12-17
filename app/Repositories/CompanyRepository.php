@@ -30,4 +30,9 @@ class CompanyRepository
     {
         return $this->company->create($data);
     }
+
+    public function update(Company $data)
+    {
+        return $data->update();
+    }
 }

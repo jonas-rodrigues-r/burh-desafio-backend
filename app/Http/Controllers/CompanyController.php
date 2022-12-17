@@ -29,4 +29,11 @@ class CompanyController extends Controller
 
         return response()->json('Empresa Cadastrada com Sucesso!', Response::HTTP_CREATED);
     }
+
+    public function update(Request $request, int $id)
+    {
+        $this->service->update($request->all(), $id);
+
+        return response()->json('Empresa Atualizada com Sucesso!', Response::HTTP_OK);
+    }
 }

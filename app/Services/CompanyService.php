@@ -38,4 +38,15 @@ class CompanyService
             'id_plan' => $data['id_plan'],
         ]);
     }
+
+    public function update(array $data, int $id)
+    {
+        $company = $this->show($id);
+
+        $company->name = $data['name'];
+        $company->description = $data['description'];
+        $company->id_plan = $data['id_plan'];
+
+        return $this->repository->update($company);
+    }
 }
