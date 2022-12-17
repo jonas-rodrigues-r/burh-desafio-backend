@@ -39,6 +39,13 @@ class VacancyController extends Controller
 
         $this->service->update($request->all(), $id);
 
-        return response()->json('Vaga Atualiada com Sucesso!', Response::HTTP_CREATED);
+        return response()->json('Vaga Atualizada com Sucesso!', Response::HTTP_CREATED);
+    }
+
+    public function delete(int $id)
+    {
+        $this->service->delete($id);
+
+        return response()->json('Vaga Excluída com Sucesso!', Response::HTTP_CREATED);
     }
 }

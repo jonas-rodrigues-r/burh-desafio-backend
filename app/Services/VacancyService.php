@@ -65,6 +65,13 @@ class VacancyService
         $this->repository->update($vacancy);
     }
 
+    public function delete(int $id)
+    {
+        $vacancy = $this->show($id);
+
+        return $this->repository->delete($vacancy);
+    }
+
     private function isMandatoryFieldsCltAndInternshipCompleted(array $data)
     {
         if (

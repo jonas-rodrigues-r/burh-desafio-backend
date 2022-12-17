@@ -42,4 +42,9 @@ class VacancyRepository
     {
         return $data->update();
     }
+
+    public function delete(Vacancy $data)
+    {
+        return $data->delete();
+    }
 }
