@@ -56,4 +56,9 @@ class CompanyService
 
         return $this->repository->delete($company);
     }
+
+    public function countCompaniesByPlan(int $idPlan)
+    {
+        return $this->repository->countCompaniesByPlan($idPlan);
+    }
 }

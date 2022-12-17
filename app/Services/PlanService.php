@@ -9,7 +9,8 @@ use Illuminate\Http\Response;
 class PlanService
 {
     public function __construct(
-        protected PlanRepository $repository
+        protected PlanRepository $repository,
+        protected CompanyService $companyService,
     ) {
     }
     
@@ -54,6 +55,11 @@ class PlanService
     public function delete(int $id)
     {
         $plan = $this->show($id);
+        $numberCompanies = $this->companyService->countCompaniesByPlan($plan->id);
+
+        if ($numberCompanies > 0) {
+            throw new Exception('Plano não pode ser excluído, pois possui empresas vinculadas!');
+        }
 
         return $this->repository->delete($plan);
     }
