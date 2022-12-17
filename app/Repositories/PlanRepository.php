@@ -15,4 +15,11 @@ class PlanRepository
     {
         return $this->plan->all();
     }
+
+    public function show(int $id)
+    {
+        return $this->plan
+            ->where('id', $id)
+            ->first();
+    }
 }

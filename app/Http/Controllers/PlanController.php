@@ -17,4 +17,9 @@ class PlanController extends Controller
     {
         return Plan::all();
     }
+
+    public function show(int $id)
+    {
+        return $this->service->show($id);
+    }
 }
