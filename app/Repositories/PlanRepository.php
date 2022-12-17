@@ -27,4 +27,9 @@ class PlanRepository
     {
         return $this->plan->create($data);
     }
+
+    public function update(Plan $data)
+    {
+        return $data->update();
+    }
 }

@@ -29,4 +29,11 @@ class PlanController extends Controller
 
         return response()->json('Plano Cadastrado com Sucesso!', Response::HTTP_CREATED);
     }
+
+    public function update(Request $request, int $id)
+    {
+        $this->service->update($request->all(), $id);
+
+        return response()->json('Plano Atualizado com Sucesso!', Response::HTTP_OK);
+    }
 }
