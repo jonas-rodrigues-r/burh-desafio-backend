@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Models\Vacancy;
 use App\Repositories\VacancyRepository;
 use Exception;
 use Illuminate\Http\Response;
