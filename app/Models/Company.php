@@ -18,6 +18,12 @@ class Company extends Model
         'id_plan',
     ];
 
+    public function plan()
+    {
+        return $this->hasMany(Plan::class, 'id', 'id_plan')
+            ->select('id', 'name', 'description', 'price', 'number_vacancies');
+    }
+
     public static function createRules(): array
     {
         return [
