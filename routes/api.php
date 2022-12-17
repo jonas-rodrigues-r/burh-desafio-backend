@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\PlanController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::prefix('plan')->group(function () {
+    Route::get('/', [PlanController::class, 'index']);
+    Route::get('/{id}', [PlanController::class, 'show']);
+    Route::post('/', [PlanController::class, 'create']);
+    Route::put('/{id}', [PlanController::class, 'update']);
+    Route::delete('/{id}', [PlanController::class, 'delete']);
 });
