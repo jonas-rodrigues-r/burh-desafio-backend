@@ -36,4 +36,11 @@ class PlanController extends Controller
 
         return response()->json('Plano Atualizado com Sucesso!', Response::HTTP_OK);
     }
+
+    public function delete(int $id)
+    {
+        $this->service->delete($id);
+
+        return response()->json('Plano Excluído com Sucesso!', Response::HTTP_OK);
+    }
 }

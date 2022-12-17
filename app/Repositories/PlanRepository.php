@@ -32,4 +32,9 @@ class PlanRepository
     {
         return $data->update();
     }
+
+    public function delete(Plan $data)
+    {
+        return $data->delete();
+    }
 }

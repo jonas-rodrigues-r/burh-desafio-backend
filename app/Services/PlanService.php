@@ -50,4 +50,11 @@ class PlanService
 
         return $this->repository->update($plan);
     }
+
+    public function delete(int $id)
+    {
+        $plan = $this->show($id);
+
+        return $this->repository->delete($plan);
+    }
 }
