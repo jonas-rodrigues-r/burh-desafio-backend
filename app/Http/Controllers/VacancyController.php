@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Services\VacancyService;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class VacancyController extends Controller
 {
@@ -19,5 +21,12 @@ class VacancyController extends Controller
     public function show(int $id)
     {
         return $this->service->show($id);
+    }
+
+    public function create(Request $request)
+    {
+        $this->service->create($request->all());
+
+        return response()->json('Vaga Cadastrada com Sucesso!', Response::HTTP_CREATED);
     }
 }

@@ -25,4 +25,16 @@ class VacancyRepository
             ->with('company')
             ->first();
     }
+
+    public function create(array $data)
+    {
+        return $this->vacancy->create($data);
+    }
+
+    public function getNumberVacanciesByCompany(int $idCompany)
+    {
+        return $this->vacancy
+            ->where('id_company', $idCompany)
+            ->count();
+    }
 }
