@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Validation\Rule;
 
 class Vacancy extends Model
 {
@@ -19,4 +20,39 @@ class Vacancy extends Model
         'hours',
         'id_company',
     ];
+
+    public function company()
+    {
+        return $this->hasMany(Company::class, 'id', 'id_company')
+            ->select('id', 'name');
+    }
+
+    public static function createRules(): array
+    {
+        return [
+            'title' => 'required|string|min:3|max:100',
+            'description' => 'required|string|min:20',
+            'type' => [
+                'required', Rule::in(config('vacancy.types')), 
+                'max:100'
+            ],
+            'wage' => 'required|between:0,9999999999.99',
+            'hour' => 'required|numeric',
+            'id_company' => 'required|numeric',
+        ];
+    }
+
+    public static function updateRules(): array
+    {
+        return [
+            'title' => 'string|min:3|max:100',
+            'description' => 'string|min:50',
+            'type' => [
+                Rule::in(config('vacancy.types')), 
+                'max:100'
+            ],
+            'wage' => 'between:0,9999999999.99',
+            'hour' => 'numeric',
+        ];
+    }
 }
