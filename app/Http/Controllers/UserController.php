@@ -39,13 +39,13 @@ class UserController extends Controller
 
         $this->service->update($request->all(), $id);
 
-        return response()->json('Usuário Atualizada com Sucesso!', Response::HTTP_CREATED);
+        return response()->json('Usuário Atualizada com Sucesso!', Response::HTTP_OK);
     }
 
     public function delete(int $id)
     {
         $this->service->delete($id);
 
-        return response()->json('Usuário Excluída com Sucesso!', Response::HTTP_CREATED);
+        return response()->json('Usuário Excluída com Sucesso!', Response::HTTP_OK);
     }
 }

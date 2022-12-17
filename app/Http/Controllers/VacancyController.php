@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\UserVacancy;
 use App\Models\Vacancy;
 use App\Services\VacancyService;
 use Illuminate\Http\Request;
@@ -39,18 +40,27 @@ class VacancyController extends Controller
 
         $this->service->update($request->all(), $id);
 
-        return response()->json('Vaga Atualizada com Sucesso!', Response::HTTP_CREATED);
+        return response()->json('Vaga Atualizada com Sucesso!', Response::HTTP_OK);
     }
 
     public function delete(int $id)
     {
         $this->service->delete($id);
 
-        return response()->json('Vaga Excluída com Sucesso!', Response::HTTP_CREATED);
+        return response()->json('Vaga Excluída com Sucesso!', Response::HTTP_OK);
     }
 
     public function getVacanciesByCompany(int $idCompany)
     {
         return $this->service->getVacanciesByCompany($idCompany);
+    }
+
+    public function subscription(Request $request)
+    {
+        $request->validate(UserVacancy::subscriptionRule());
+
+        $this->service->subscription($request->all());
+
+        return response()->json('Inscrição Realizada com Sucesso!', Response::HTTP_CREATED);
     }
 }

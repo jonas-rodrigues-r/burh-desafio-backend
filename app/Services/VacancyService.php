@@ -15,6 +15,7 @@ class VacancyService
     public function __construct(
         protected VacancyRepository $repository,
         protected CompanyService $companyService,
+        protected UserService $userService,
     ) {  
     }
 
@@ -83,6 +84,16 @@ class VacancyService
         return $vacancies;
     }
 
+    public function subscription(array $data)
+    {
+        $this->isValidSubscription($data);
+
+        return $this->repository->subscriptionUserInVacancy([
+            'id_user' => $data['id_user'],
+            'id_vacancy' => $data['id_vacancy'],
+        ]);
+    }
+
     private function isMandatoryFieldsCltAndInternshipCompleted(array $data)
     {
         if (
@@ -129,5 +140,18 @@ class VacancyService
         if ($numberVacanciesRegistered >= $company->plan->first()['number_vacancies']) {
             throw new Exception('Número de vagas para o plano atual excedido.', Response::HTTP_UNPROCESSABLE_ENTITY);
         }
+    }
+
+    public function isValidSubscription(array $data)
+    {
+        $userVacancy = $this->repository->getSubscriptionByUserAndVacancy($data['id_user'], $data['id_vacancy']);
+
+        if (! empty($userVacancy)) {
+            throw new Exception('Usuário já está inscrito nesta vaga!', Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        $this->userService->show($data['id_user']);
+        
+        $this->show($data['id_vacancy']);
     }
 }

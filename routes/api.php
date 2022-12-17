@@ -40,6 +40,7 @@ Route::prefix('vacancy')->group(function () {
     Route::post('/', [VacancyController::class, 'create']);
     Route::put('/{id}', [VacancyController::class, 'update']);
     Route::delete('/{id}', [VacancyController::class, 'delete']);
+    Route::post('/subscription', [VacancyController::class, 'subscription']);
 });
 
 Route::prefix('user')->group(function () {

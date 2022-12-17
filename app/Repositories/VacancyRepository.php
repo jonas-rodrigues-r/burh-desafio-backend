@@ -2,12 +2,14 @@
 
 namespace App\Repositories;
 
+use App\Models\UserVacancy;
 use App\Models\Vacancy;
 
 class VacancyRepository
 {
     public function __construct(
         protected Vacancy $vacancy,
+        protected UserVacancy $userVacancy,
     ) {  
     }
 
@@ -55,5 +57,20 @@ class VacancyRepository
             ->where('id_company', $idCompany)
             ->with('company')
             ->get();
+    }
+
+    public function subscriptionUserInVacancy(array $data)
+    {
+        return $this->userVacancy->create($data);
+    }
+
+    public function getSubscriptionByUserAndVacancy(int $idUser, int $idVacancy)
+    {
+        return $this->userVacancy
+            ->where('id_user', $idUser)
+            ->where('id_vacancy', $idVacancy)
+            ->with('user')
+            ->with('vacancy')
+            ->first();
     }
 }
