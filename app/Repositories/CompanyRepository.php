@@ -35,4 +35,9 @@ class CompanyRepository
     {
         return $data->update();
     }
+
+    public function delete(Company $data)
+    {
+        return $data->delete();
+    }
 }

@@ -49,4 +49,11 @@ class CompanyService
 
         return $this->repository->update($company);
     }
+
+    public function delete(int $id)
+    {
+        $company = $this->show($id);
+
+        return $this->repository->delete($company);
+    }
 }

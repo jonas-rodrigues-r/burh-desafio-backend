@@ -36,4 +36,11 @@ class CompanyController extends Controller
 
         return response()->json('Empresa Atualizada com Sucesso!', Response::HTTP_OK);
     }
+
+    public function delete(int $id)
+    {
+        $this->service->delete($id);
+
+        return response()->json('Empresa Excluída com Sucesso!', Response::HTTP_OK);
+    }
 }
