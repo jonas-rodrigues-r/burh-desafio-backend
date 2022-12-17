@@ -32,4 +32,13 @@ class VacancyController extends Controller
 
         return response()->json('Vaga Cadastrada com Sucesso!', Response::HTTP_CREATED);
     }
+
+    public function update(Request $request, int $id)
+    {
+        $request->validate(Vacancy::updateRules());
+
+        $this->service->update($request->all(), $id);
+
+        return response()->json('Vaga Atualiada com Sucesso!', Response::HTTP_CREATED);
+    }
 }

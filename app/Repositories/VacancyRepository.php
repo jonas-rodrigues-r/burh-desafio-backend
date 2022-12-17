@@ -37,4 +37,9 @@ class VacancyRepository
             ->where('id_company', $idCompany)
             ->count();
     }
+
+    public function update(Vacancy $data)
+    {
+        return $data->update();
+    }
 }

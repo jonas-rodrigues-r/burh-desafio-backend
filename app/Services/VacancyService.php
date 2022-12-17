@@ -51,6 +51,20 @@ class VacancyService
         ]);
     }
 
+    public function update(array $data, int $id)
+    {
+        $this->isAdequateWageClt($data);
+        $this->isWorkloadAdequateIntern($data);
+
+        $vacancy = $this->show($id);
+        $vacancy->title = $data['title'];
+        $vacancy->description = $data['description'];
+        $vacancy->wage = $data['wage'];
+        $vacancy->hours = $data['hours'];
+
+        $this->repository->update($vacancy);
+    }
+
     private function isMandatoryFieldsCltAndInternshipCompleted(array $data)
     {
         if (
