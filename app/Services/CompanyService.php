@@ -59,7 +59,7 @@ class CompanyService
         return $this->repository->delete($company);
     }
 
-    public function countCompaniesByPlan(int $idPlan): Collection
+    public function countCompaniesByPlan(int $idPlan): int
     {
         return $this->repository->countCompaniesByPlan($idPlan);
     }

@@ -44,9 +44,9 @@ class CompanyRepository
         return $data->delete();
     }
 
-    public function countCompaniesByPlan(int $idPlan): bool
+    public function countCompaniesByPlan(int $idPlan): int
     {
-        return $this->company
+        return (int) $this->company
             ->where('id_plan', $idPlan)
             ->count();
     }
