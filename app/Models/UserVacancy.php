@@ -26,11 +26,13 @@ class UserVacancy extends Model
 
     public function user()
     {
-        return $this->hasMany(User::class, 'id', 'id_user');
+        return $this->hasMany(User::class, 'id', 'id_user')
+            ->select('id', 'name', 'email', 'birth_date');
     }
 
     public function vacancy()
     {
-        return $this->hasMany(Vacancy::class, 'id', 'id_vacancy');
+        return $this->hasMany(Vacancy::class, 'id', 'id_vacancy')
+            ->select('id', 'title', 'description', 'type', 'wage', 'hours', 'id_company');
     }
 }

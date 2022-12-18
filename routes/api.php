@@ -49,4 +49,5 @@ Route::prefix('user')->group(function () {
     Route::post('/', [UserController::class, 'create']);
     Route::put('/{id}', [UserController::class, 'update']);
     Route::delete('/{id}', [UserController::class, 'delete']);
+    Route::get('/vacancy/filter', [UserController::class, 'getUserAndVacancies']);
 });

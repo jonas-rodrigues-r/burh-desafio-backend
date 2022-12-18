@@ -48,4 +48,9 @@ class UserController extends Controller
 
         return response()->json('Usuário Excluída com Sucesso!', Response::HTTP_OK);
     }
+
+    public function getUserAndVacancies(Request $request)
+    {
+        return $this->service->getUserAndVacancies($request->all());
+    }
 }

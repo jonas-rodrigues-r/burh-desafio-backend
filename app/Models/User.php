@@ -18,6 +18,12 @@ class User extends Model
         'birth_date',
     ];
 
+    public function vacancies()
+    {
+        return $this->hasMany(UserVacancy::class, 'id_user')
+            ->select('id_user', 'id_vacancy');
+    }
+
     public static function createRules(): array
     {
         return [

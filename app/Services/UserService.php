@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Repositories\UserRepository;
+use App\Repositories\VacancyRepository;
 use Exception;
 use Illuminate\Http\Response;
 
@@ -11,6 +12,7 @@ class UserService
 
     public function __construct(
         protected UserRepository $repository,
+        protected VacancyRepository $vacancyRepository,
     ) {  
     }
 
@@ -56,4 +58,18 @@ class UserService
         return $this->repository->delete($user);
     }
 
+    public function getUserAndVacancies(array $data)
+    {
+        $users = $this->repository->getUsers([
+            'name' => $data['name'] ?? null,
+            'email' => $data['email'] ?? null,
+            'cpf' => $data['cpf'] ?? null,
+        ]);
+
+        if (empty($users)) {
+            throw new Exception('Nenhum registro encontrado.', Response::HTTP_OK);
+        }
+
+        return $users;
+    }
 }
