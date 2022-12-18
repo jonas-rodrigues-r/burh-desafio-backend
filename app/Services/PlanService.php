@@ -2,9 +2,11 @@
 
 namespace App\Services;
 
+use App\Models\Plan;
 use App\Repositories\PlanRepository;
 use Exception;
 use Illuminate\Http\Response;
+use Illuminate\Support\Collection;
 
 class PlanService
 {
@@ -14,12 +16,12 @@ class PlanService
     ) {
     }
     
-    public function index()
+    public function index(): Collection
     {
         return $this->repository->index();
     }
 
-    public function show(int $id)
+    public function show(int $id): ?Plan
     {
         $plan = $this->repository->show($id);
 
@@ -30,7 +32,7 @@ class PlanService
         return $plan;
     }
 
-    public function create(array $data)
+    public function create(array $data): Plan
     {
         return $this->repository->create([
             'name' => $data['name'],
@@ -40,7 +42,7 @@ class PlanService
         ]);
     }
 
-    public function update(array $data, int $id)
+    public function update(array $data, int $id): bool
     {
         $plan = $this->show($id);
 
@@ -52,7 +54,7 @@ class PlanService
         return $this->repository->update($plan);
     }
 
-    public function delete(int $id)
+    public function delete(int $id): ?bool
     {
         $plan = $this->show($id);
         $numberCompanies = $this->companyService->countCompaniesByPlan($plan->id);
