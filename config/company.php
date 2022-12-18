@@ -10,4 +10,8 @@ return [
         'id_plan',
     ],
 
+    'key_base' => 'burh:company:',
+
+    'tll_redis' => 60,
+
 ];
