@@ -1,69 +1,73 @@
-# Desafio Backend BURH 
- 
-## Introdução 
-Nesse desafio serão analisadas suas competências no desenvolvimento de uma API de vagas de emprego. O desafio é referente à vaga Desenvolvedor(a) Backend PHP, publicada no [Burh](https://burh.com.br/vagas/3270129695). Abaixo você encontrará todas as informações necessárias para criar e submeter seu desafio.  
+# DESAFIO BURH 
 
-Boa sorte! 🙂 
- 
-## Instruções 
-Para realizar o desafio é importante que você cumpra os itens abaixo: 
-* Possuir um Github; 
-* Realizar o [Fork](https://docs.github.com/pt/get-started/quickstart/fork-a-repo) deste projeto e subir os commits em seu Github; 
-* Estar inscrito na [vaga](https://burh.com.br/vagas/3270129695). 
- 
-## Instruções 
-Para começar a desenvolver, o primeiro passo é criar um fork deste projeto, logo após, recomendamos que você de uma boa olhada nas principais funções e requisitos do desafio antes de começar a programar. Ao subir os commits do seu projeto busque ser o mais descritivo possível, sem subir muitas funcionalidades de uma vez. O desafio busca analisar suas competências em desenvolvimento de APIs, portanto não é necessário e nem será analisado nenhuma tela. Busque terminar primeiro os itens essenciais do desafio e só então, caso queira, você pode implementar funcionalidades adicionais ao seu projeto. 
- 
-A API deve ser criada utilizando PHP com o Framework Laravel. O banco ficará a sua escolha, portanto que seja um banco SQL (MySql, MariaDB, PostgreSQL, Sqlite, etc). 
- 
-## O Projeto 
-Você será responsável pela criação de uma API Restful de cadastro de vagas e candidatura de usuários, em que uma empresa pode criar uma vaga e um usuário pode se candidatar nas vagas criadas.  
-A API deve ser o mais simples possível, contendo somente as funcionalidades que você considere essenciais para a integração completa do seu projeto e atenda aos nossos requisitos.  
-Rotas, estrutura do banco e estrutura do código também estarão ao seu critério, portanto que supram os requisitos. 
-  
-A API deverá conter as seguintes entidades: 
+## SOBRE O SISTEMA
 
- 
-* Empresa; 
-* Usuário; 
-* Vaga. 
- 
-A entidade empresa deverá conter os campos nome, descrição, CNPJ e plano. 
-A entidade vaga deverá conter os campos título, descrição, tipo de vaga, salário e horário. 
-A entidade usuário deverá conter os campos nome, e-mail, CPF e idade. 
- 
-Requisitos: 
+Trata-se de uma API, para cadastro de empresas, usuários, vagas e candidatura de usuários, possibilitando o fluxo básico de uma plataforma de vagas.
 
- 
-* Empresas podem abrir vagas. 
-* Usuários podem se candidatar a vagas. 
-* Não pode haver mais de um usuário com o mesmo e-mail ou CPF cadastrado. 
-* Não pode haver mais de uma empresa com o mesmo CNPJ cadastrado. 
-* As empresas poderão ter 2 tipos de plano: "Free" ou "Premium". Empresas com o plano Free poderão abrir até 5 vagas, enquanto empresas com o plano Premium podem abrir até 10 vagas. 
-* Poderão existir vagas do tipo PJ, CLT e estágio.  
-* Vagas do tipo CLT e estágio tem o cadastro do salário e horário obrigatórios.  
-* Vagas do tipo CLT devem possuir o salário mínimo de R$1212,00 enquanto vagas de estágio e PJ não possuem um valor mínimo.  
-* Vagas do tipo estágio devem ter o horário máximo de 6 horas. 
-* Deverá haver uma rota de busca de usuários, podendo filtrar por nome, E-mail e CPF. Além disso a rota deverá retornar todas as vagas em que aqueles usuários estão inscritos, trazendo todos os dados dessas vagas. 
- 
-Você é livre para nomear os campos da forma que preferir e adicionar quaisquer campos extras ou tabelas para criar relações entre as entidades. não é necessário qualquer sistema de autenticação. 
- 
-## O que avaliaremos em seu projeto 
-* Cumprimento dos requisitos do desafio. 
-* Estrutura e coerência do código. 
-* Arquitetura do banco. 
-* Código limpo e organizado. 
-* Padrões de código (PSRs, Design patterns, SOLID). 
-* Tratamento de erros. 
- 
-## O que será um diferencial para seu projeto. 
-* Uso de docker. 
-* Testes de integração. 
-* Design Patterns. 
-* Documentação (ReadME). 
+Para o desenvolvimento dessa API, foi utilizada a linguagem PHP na versão 8.0 com o Laravel, um framework rápido, robusto e completo, que agiliza e otimiza o processo de desenvolvimeto. 
 
-* Uso de cache 
- 
-## O que NÃO é essencial em seu projeto 
-* Frontend. 
-* Autenticação. 
+Como banco de dados, foi utilizado o MySQL, um dos mais populares bancos de dados, que possui uma ampla gama de documentação e é compatível em diversos sistemas operacionais. E também, como cache, foi utilizado o Redis (banco noSQL), para tornar as consultas mais rápidas, utilizada para suprir o sistema de busca de vagas, empresas, planos e usuários. Ele foi instalado via composer, com a biblioteca Predis, um cliente Redis escrito em PHP que não requer nenhuma extensão adicional para funcionar.
+
+Para traduzir as mensagens do Laravel Validation, que por padrão vem em Inglês, foi utilizada a biblioteca "lucascudo/laravel-pt-br-localization" na versão "1.2".
+
+Para facilitar a criação e gerenciamento do ambiente, foi utilizado o Docker.
+
+<hr>
+
+## REQUISITOS PARA O FUNCIONAMENTO NO AMBIENTE
+
+* PHP 8;
+* Laravel 9.44.0;
+* MySQL 5.7.40;
+* Redis 7.0;
+* predis/predis 2.0;
+* Docker;
+* Docker compose;
+* Composer;
+* lucascudo/laravel-pt-br-localization 1.2;
+
+
+<hr>
+
+## INSTRUÇÕES PARA CONFIGURAÇÃO DO AMBIENTE
+
+* Baixe o repositório contendo os arquivos do projeto:
+
+        $ git clone https://github.com/jonas-rodrigues-r/burh-desafio-backend
+
+* Na raiz do projeto, execute os comandos:
+
+        $ cd burh-desafio-backend
+
+        $ cp .env.example .env
+    
+        $ composer install
+
+* No arquivo .env, para utilizar o Redis e o Banco de Dados MySQL via Docker, devem estar configurados da seguinte forma:
+
+        DB_CONNECTION=mysql
+        DB_HOST=127.0.0.1
+        DB_PORT=3306
+        DB_DATABASE=teste_burh
+        DB_USERNAME=root
+        DB_PASSWORD=secret
+
+        BROADCAST_DRIVER=log
+        CACHE_DRIVER=redis
+        FILESYSTEM_DISK=local
+        QUEUE_CONNECTION=sync
+        SESSION_DRIVER=redis
+        SESSION_LIFETIME=120
+
+* Para subir o ambiente Docker, execute o seguinte comando:
+
+        $ docker-compose up -d --build
+
+* Para criar as tabelas que serão utilizadas, na raiz do projeto, execute o seguinte comando:
+
+        $ php artisan migrate
+
+* Para inciar o servidor Laravel e poder navegar pela API, execute o seguinte comando:
+
+        $ php artisan serve
+
