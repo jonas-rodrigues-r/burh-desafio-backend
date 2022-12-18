@@ -10,4 +10,8 @@ return [
         'birth_date', 
     ],
 
+    'key_base' => 'burh:company:',
+
+    'tll_redis' => 60,
+
 ];
