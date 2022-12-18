@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\UserVacancy;
 use App\Models\Vacancy;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Cache;
 
 class VacancyRepository
 {
@@ -24,26 +25,44 @@ class VacancyRepository
 
     public function show(int $id): ?Vacancy
     {
-        return $this->vacancy
-            ->select(config('vacancy.select_fields'))
-            ->where('id', $id)
-            ->with('company')
-            ->first();
+        return Cache::remember(config('vacancy.key_base') . $id, config('vacancy.tll_redis'), function () use ($id) {
+            return $this->vacancy
+                ->select(config('vacancy.select_fields'))
+                ->where('id', $id)
+                ->with('company')
+                ->first();
+        });
     }
 
     public function create(array $data): Vacancy
     {
-        return $this->vacancy->create($data);
+        $vacancy = $this->vacancy->create($data);
+
+        return Cache::remember(config('vacancy.key_base') . $vacancy->id, config('vacancy.tll_redis'), function () use ($vacancy) {
+            return $vacancy;
+        });
     }
 
     public function update(Vacancy $data): bool
     {
-        return $data->update();
+        $vacancy = $data->update();
+
+        Cache::forget(config('vacancy.key_base') . $data->id);
+
+        Cache::remember(config('vacancy.key_base') . $data->id, config('vacancy.tll_redis'), function () use ($data) {
+            return $data;
+        });
+
+        return $vacancy;
     }
 
     public function delete(Vacancy $data): bool
     {
-        return $data->delete();
+        $vacancy = $data->delete();
+
+        Cache::forget(config('vacancy.key_base') . $data->id);
+
+        return $vacancy;
     }
 
     public function getNumberVacanciesByCompany(int $idCompany): int
@@ -64,7 +83,13 @@ class VacancyRepository
 
     public function subscriptionUserInVacancy(array $data): ?UserVacancy
     {
-        return $this->userVacancy->create($data);
+        $userVacancy = $this->userVacancy->create($data);
+
+        Cache::remember(config('vacancy.key_base_user_vacancy') . $userVacancy->id, config('vacancy.tll_redis'), function () use ($userVacancy) {
+            return $userVacancy;
+        });
+
+        return $userVacancy;
     }
 
     public function getSubscriptionByUserAndVacancy(int $idUser, int $idVacancy): ?UserVacancy

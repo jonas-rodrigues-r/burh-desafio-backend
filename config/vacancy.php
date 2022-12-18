@@ -28,4 +28,10 @@ return [
         'id_company'
     ],
 
+    'key_base' => 'burh:vacancy:',
+
+    'tll_redis' => 60,
+
+    'key_base_user_vacancy' => 'burh:user:vacancy:',
+
 ];
