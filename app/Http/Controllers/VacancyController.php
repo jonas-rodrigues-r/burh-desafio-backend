@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\UserVacancy;
 use App\Models\Vacancy;
 use App\Services\VacancyService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Collection;
 
 class VacancyController extends Controller
 {
@@ -15,17 +17,17 @@ class VacancyController extends Controller
     ) { 
     }
 
-    public function index()
+    public function index(): Collection
     {
         return $this->service->index();
     }
 
-    public function show(int $id)
+    public function show(int $id): ?Vacancy
     {
         return $this->service->show($id);
     }
 
-    public function create(Request $request)
+    public function create(Request $request): JsonResponse
     {
         $request->validate(Vacancy::createRules());
 
@@ -34,7 +36,7 @@ class VacancyController extends Controller
         return response()->json('Vaga Cadastrada com Sucesso!', Response::HTTP_CREATED);
     }
 
-    public function update(Request $request, int $id)
+    public function update(Request $request, int $id): JsonResponse
     {
         $request->validate(Vacancy::updateRules());
 
@@ -43,7 +45,7 @@ class VacancyController extends Controller
         return response()->json('Vaga Atualizada com Sucesso!', Response::HTTP_OK);
     }
 
-    public function delete(int $id)
+    public function delete(int $id): JsonResponse
     {
         $this->service->delete($id);
 
@@ -55,7 +57,7 @@ class VacancyController extends Controller
         return $this->service->getVacanciesByCompany($idCompany);
     }
 
-    public function subscription(Request $request)
+    public function subscription(Request $request): JsonResponse
     {
         $request->validate(UserVacancy::subscriptionRule());
 

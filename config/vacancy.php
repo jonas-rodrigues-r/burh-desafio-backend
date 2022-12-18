@@ -18,4 +18,14 @@ return [
         ],
     ],
 
+    'select_fields' => [
+        'id',
+        'title',
+        'description',
+        'type',
+        'wage',
+        'hours',
+        'id_company'
+    ],
+
 ];

@@ -2,26 +2,27 @@
 
 namespace App\Services;
 
+use App\Models\User;
 use App\Repositories\UserRepository;
 use App\Repositories\VacancyRepository;
 use Exception;
 use Illuminate\Http\Response;
+use Illuminate\Support\Collection;
 
 class UserService
 {
-
     public function __construct(
         protected UserRepository $repository,
         protected VacancyRepository $vacancyRepository,
     ) {  
     }
 
-    public function index()
+    public function index(): Collection
     {
         return $this->repository->index();
     }
 
-    public function show(int $id)
+    public function show(int $id): ?User
     {
         $user = $this->repository->show($id);
 
@@ -32,7 +33,7 @@ class UserService
         return $user;
     }
 
-    public function create(array $data)
+    public function create(array $data): User
     {
         return $this->repository->create([
             'name' => $data['name'],
@@ -42,23 +43,23 @@ class UserService
         ]);
     }
 
-    public function update(array $data, int $id)
+    public function update(array $data, int $id): bool
     {
         $user = $this->show($id);
         $user->name = $data['name'];
         $user->email = $data['email'];
 
-        $this->repository->update($user);
+        return $this->repository->update($user);
     }
 
-    public function delete(int $id)
+    public function delete(int $id): bool
     {
         $user = $this->show($id);
 
         return $this->repository->delete($user);
     }
 
-    public function getUserAndVacancies(array $data)
+    public function getUserAndVacancies(array $data): Collection
     {
         $users = $this->repository->getUsers([
             'name' => $data['name'] ?? null,

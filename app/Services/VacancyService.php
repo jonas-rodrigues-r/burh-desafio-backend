@@ -2,9 +2,12 @@
 
 namespace App\Services;
 
+use App\Models\UserVacancy;
+use App\Models\Vacancy;
 use App\Repositories\VacancyRepository;
 use Exception;
 use Illuminate\Http\Response;
+use Illuminate\Support\Collection;
 
 class VacancyService
 {
@@ -19,12 +22,12 @@ class VacancyService
     ) {  
     }
 
-    public function index()
+    public function index(): Collection
     {
         return $this->repository->index();
     }
 
-    public function show(int $id)
+    public function show(int $id): ?Vacancy
     {
         $vacancy = $this->repository->show($id);
 
@@ -35,7 +38,7 @@ class VacancyService
         return $vacancy;
     }
 
-    public function create(array $data)
+    public function create(array $data): Vacancy
     {
         $this->isMandatoryFieldsCltAndInternshipCompleted($data);
         $this->isAdequateWageClt($data);
@@ -52,7 +55,7 @@ class VacancyService
         ]);
     }
 
-    public function update(array $data, int $id)
+    public function update(array $data, int $id): bool
     {
         $this->isAdequateWageClt($data);
         $this->isWorkloadAdequateIntern($data);
@@ -63,17 +66,17 @@ class VacancyService
         $vacancy->wage = $data['wage'];
         $vacancy->hours = $data['hours'];
 
-        $this->repository->update($vacancy);
+        return $this->repository->update($vacancy);
     }
 
-    public function delete(int $id)
+    public function delete(int $id): bool
     {
         $vacancy = $this->show($id);
 
         return $this->repository->delete($vacancy);
     }
 
-    public function getVacanciesByCompany(int $idCompany)
+    public function getVacanciesByCompany(int $idCompany): Collection
     {
         $vacancies = $this->repository->getVacanciesByCompany($idCompany);
 
@@ -84,7 +87,7 @@ class VacancyService
         return $vacancies;
     }
 
-    public function subscription(array $data)
+    public function subscription(array $data): UserVacancy
     {
         $this->isValidSubscription($data);
 
@@ -94,7 +97,7 @@ class VacancyService
         ]);
     }
 
-    private function isMandatoryFieldsCltAndInternshipCompleted(array $data)
+    private function isMandatoryFieldsCltAndInternshipCompleted(array $data): void
     {
         if (
             in_array($data['type'], [VacancyService::CLT, VacancyService::ESTAGIO]) 
@@ -107,7 +110,7 @@ class VacancyService
         }
     }
 
-    private function isAdequateWageClt(array $data)
+    private function isAdequateWageClt(array $data): void
     {
         if ($data['type'] === VacancyService::CLT && $data['wage'] < config('vacancy.wage.min_clt')) {
             throw new Exception(
@@ -117,7 +120,7 @@ class VacancyService
         }
     }
 
-    private function isWorkloadAdequateIntern(array $data)
+    private function isWorkloadAdequateIntern(array $data): void
     {
         if (
             $data['type'] === VacancyService::ESTAGIO
@@ -131,7 +134,7 @@ class VacancyService
         }
     }
 
-    private function doesLimitVacanciesCompanyRegistered(array $data)
+    private function doesLimitVacanciesCompanyRegistered(array $data): void
     {
         $company = $this->companyService->show($data['id_company']);
 
@@ -142,7 +145,7 @@ class VacancyService
         }
     }
 
-    public function isValidSubscription(array $data)
+    public function isValidSubscription(array $data): void
     {
         $userVacancy = $this->repository->getSubscriptionByUserAndVacancy($data['id_user'], $data['id_vacancy']);
 
