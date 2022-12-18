@@ -2,9 +2,11 @@
 
 namespace App\Services;
 
+use App\Models\Company;
 use App\Repositories\CompanyRepository;
 use Exception;
 use Illuminate\Http\Response;
+use Illuminate\Support\Collection;
 
 class CompanyService
 {
@@ -13,12 +15,12 @@ class CompanyService
     ) {
     }
     
-    public function index()
+    public function index(): Collection
     {
         return $this->repository->index();
     }
 
-    public function show(int $id)
+    public function show(int $id): ?Company
     {
         $company = $this->repository->show($id);
 
@@ -29,7 +31,7 @@ class CompanyService
         return $company;
     }
 
-    public function create(array $data)
+    public function create(array $data): Company
     {
         return $this->repository->create([
             'name' => $data['name'],
@@ -39,7 +41,7 @@ class CompanyService
         ]);
     }
 
-    public function update(array $data, int $id)
+    public function update(array $data, int $id): bool
     {
         $company = $this->show($id);
 
@@ -50,14 +52,14 @@ class CompanyService
         return $this->repository->update($company);
     }
 
-    public function delete(int $id)
+    public function delete(int $id): bool
     {
         $company = $this->show($id);
 
         return $this->repository->delete($company);
     }
 
-    public function countCompaniesByPlan(int $idPlan)
+    public function countCompaniesByPlan(int $idPlan): Collection
     {
         return $this->repository->countCompaniesByPlan($idPlan);
     }
