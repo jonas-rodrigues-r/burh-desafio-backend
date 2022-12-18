@@ -17,21 +17,17 @@ class PlanRepository
     
     public function index(): Collection
     {
-        return Cache::remember(config('plan.key_redis_index'), config('plan.tll_redis'), function () {
-               return $this->plan->select(config('plan.select_fields'))->get();
-            }
-        );
+        return $this->plan->select(config('plan.select_fields'))->get();
     }
 
     public function show(int $id): ?Plan
     {
         return Cache::remember(config('plan.key_base') . $id, config('plan.tll_redis'), function () use ($id) {
-                return $this->plan
-                    ->select(config('plan.select_fields'))
-                    ->where('id', $id)
-                    ->first();
-            }
-        );
+            return $this->plan
+                ->select(config('plan.select_fields'))
+                ->where('id', $id)
+                ->first();
+        });
     }
 
     public function create(array $data): Plan
@@ -39,9 +35,8 @@ class PlanRepository
         $plan = $this->plan->create($data);
 
         return Cache::remember(config('plan.key_base') . $plan->id, config('plan.tll_redis'), function () use ($plan) {
-                return $plan;
-            }
-        );
+            return $plan;
+        });
     }
 
     public function update(Plan $data): bool
