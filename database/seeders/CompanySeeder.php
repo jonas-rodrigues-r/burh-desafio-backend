@@ -20,7 +20,7 @@ class CompanySeeder extends Seeder
         for ($i = 0; $i < 10; $i++) {
             DB::table('companies')->insert([
                 'name' => 'Empresa ' . $i,
-                'description' => $faker->paragraph,
+                'description' => $faker->paragraph(1),
                 'cnpj' => preg_replace('/\D/', '',  $faker->cnpj),
                 'id_plan' => random_int(1, 2),
                 'created_at' => Carbon::now(),

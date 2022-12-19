@@ -15,18 +15,7 @@ services:
       - '3306:3306'
     networks:
       - app-network
-
-  app:
-    image: docker.io/bitnami/laravel:9
-    ports:
-      - '8000:8000'
-    volumes:
-      - './:/app'
-    depends_on:
-      - mysqldb
-    links:
-      - mysqldb
-
+  
   redis:
     image: redis:7.0-alpine3.17
     ports:
