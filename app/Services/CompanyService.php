@@ -63,4 +63,9 @@ class CompanyService
     {
         return $this->repository->countCompaniesByPlan($idPlan);
     }
+
+    public function formatCnpj(string $cnpj): string
+    {
+        return preg_replace('/\D/', '',  $cnpj);
+    }
 }

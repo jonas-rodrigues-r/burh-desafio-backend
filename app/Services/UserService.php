@@ -73,4 +73,9 @@ class UserService
 
         return $users;
     }
+
+    public function formatCnpj(string $cpf): string
+    {
+        return preg_replace('/\D/', '',  $cpf);
+    }
 }

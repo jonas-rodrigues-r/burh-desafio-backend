@@ -28,6 +28,10 @@ class UserController extends Controller
 
     public function create(Request $request): JsonResponse
     {
+        $cpf = $this->service->formatCnpj($request->input('cpf'));
+    
+        $request->merge(['cpf' => $cpf]);
+
         $request->validate(User::createRules());
 
         $this->service->create($request->all());

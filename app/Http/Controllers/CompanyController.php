@@ -28,6 +28,10 @@ class CompanyController extends Controller
 
     public function create(Request $request): JsonResponse
     {
+        $cnpj = $this->service->formatCnpj($request->input('cnpj'));
+    
+        $request->merge(['cnpj' => $cnpj]);
+
         $request->validate(Company::createRules());
 
         $this->service->create($request->all());
