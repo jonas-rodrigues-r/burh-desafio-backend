@@ -10,7 +10,7 @@ Como banco de dados, foi utilizado o MySQL, um dos mais populares bancos de dado
 
 Para traduzir as mensagens do Laravel Validation, que por padrão vem em Inglês, foi utilizada a biblioteca "lucascudo/laravel-pt-br-localization" na versão "1.2".
 
-Para facilitar a criação e gerenciamento do ambiente, foi utilizado o Docker.
+Para facilitar a criação e gerenciamento do ambiente, foi utilizado o Docker para o Redis e o Banco de Dados.
 
 <hr>
 
@@ -66,6 +66,10 @@ Para facilitar a criação e gerenciamento do ambiente, foi utilizado o Docker.
 * Para criar as tabelas que serão utilizadas, na raiz do projeto, execute o seguinte comando:
 
         $ php artisan migrate
+
+* Para criar o mock de dados no banco, rode o seguinte comando:
+
+        $ php artisan db:seed
 
 * Para inciar o servidor Laravel e poder navegar pela API, execute o seguinte comando:
 
