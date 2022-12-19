@@ -75,3 +75,14 @@ Para facilitar a criação e gerenciamento do ambiente, foi utilizado o Docker p
 
         $ php artisan serve
 
+
+<hr>
+
+
+## INFORMAÇÕES ADICIONAIS
+
+### <a href="https://drive.google.com/file/d/1nS_TIw6-tCkwDDZ9_jhNGthhPwFO0clj/view?usp=sharing">Collection no Postman</a>
+
+### <a href="https://drive.google.com/file/d/1mwtTHRmBIldOHoCJinSLrLiki2bgZZb2/view?usp=sharing">ER do Banco de Dados</a>
+
+
